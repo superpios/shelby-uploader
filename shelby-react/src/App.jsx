@@ -11,20 +11,29 @@ export default function App() {
     JSON.parse(localStorage.getItem('shelby_files') || '[]')
   )
 
-  const handleConnect = async () => {
-    try {
-      const petra = wallets?.find(w => w.name === 'Petra')
-      if (!petra) {
-        showStatus('❌ Petra Wallet non trovato! Installalo su Chrome e ricarica.', 'error')
-        return
-      }
-      await connect('Petra')
-    } catch (err) {
-      showStatus(`❌ Errore: ${err.message}`, 'error')
+ const handleConnect = async () => {
+  try {
+    if (!wallets || wallets.length === 0) {
+      showStatus('❌ Nessun wallet Aptos trovato! Installa Petra e ricarica.', 'error')
+      return
     }
-  }
 
-  const handleUpload = async () => {
+    // Cerca Petra tra i wallet disponibili
+    const petra = wallets.find(w => w.name === 'Petra')
+
+    if (!petra) {
+      showStatus(`❌ Petra non trovato! Wallet disponibili: ${wallets.map(w => w.name).join(', ')}`, 'error')
+      return
+    }
+
+    // Usa SOLO il wallet adapter — mai window.petra direttamente
+    await connect(petra.name)
+
+  } catch (err) {
+    showStatus(`❌ Errore: ${err.message}`, 'error')
+  }
+}
+ const handleUpload = async () => {
     if (!file) { showStatus('⚠️ Seleziona un file prima!', 'error'); return }
 
     showStatus('⏳ Upload su Shelby Testnet...', 'loading')
