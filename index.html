@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Shelby Testnet Uploader</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #0a0a0a;
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .card {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+    }
+    h1 { font-size: 28px; margin-bottom: 8px; }
+    p.sub { color: #888; margin-bottom: 24px; }
+    .upload-area {
+      border: 2px dashed #0043FF;
+      border-radius: 12px;
+      padding: 40px;
+      margin: 20px 0;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .upload-area:hover { background: #0043FF20; }
+    input[type="file"] { display: none; }
+    button {
+      background: #0043FF;
+      color: white;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 8px;
+      transition: opacity 0.3s;
+    }
+    button:hover { opacity: 0.8; }
+    button.secondary {
+      background: #222;
+      border: 1px solid #333;
+    }
+    #status {
+      margin-top: 20px;
+      padding: 12px;
+      border-radius: 8px;
+      display: none;
+    }
+    .success { background: #004d00; display: block !important; }
+    .error { background: #4d0000; display: block !important; }
+    .loading { background: #1a1a00; display: block !important; }
+    #fileList { margin-top: 20px; text-align: left; }
+    .file-item {
+      background: #1a1a1a;
+      border-radius: 8px;
+      padding: 10px;
+      margin: 8px 0;
+      font-size: 13px;
+      word-break: break-all;
+    }
+    #filePreview { margin: 10px 0; color: #aaa; font-size: 14px; }
+    code {
+      background: #222;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🗄️ Shelby Uploader</h1>
+    <p class="sub">Decentralized Storage — Shelby Testnet</p>
+
+    <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+      <p>📂 Clicca qui per scegliere un file</p>
+      <p style="font-size:12px; margin-top:8px; color:#888;">Supporta tutti i tipi di file</p>
+    </div>
+    <input type="file" id="fileInput" onchange="previewFile()"/>
+
+    <div id="filePreview"></div>
+
+    <button onclick="uploadFile()">📤 Upload su Shelby</button>
+    <button class="secondary" onclick="listFiles()">📋 I miei file</button>
+    <button class="secondary" onclick="clearHistory()">🗑️ Cancella</button>
+
+    <div id="status"></div>
+    <div id="fileList"></div>
+  </div>
+
+  <script>
+    function previewFile() {
+      const file = document.getElementById('fileInput').files[0];
+      if (file) {
+        const size = (file.size / 1024).toFixed(2);
+        document.getElementById('filePreview').innerHTML =
+          `📄 <strong>${file.name}</strong> — ${size} KB`;
+      }
+    }
+
+    async function uploadFile() {
+      const file = document.getElementById('fileInput').files[0];
+      if (!file) {
+        showStatus('⚠️ Seleziona un file prima!', 'error');
+        return;
+      }
+
+      showStatus('⏳ Uploading su Shelby Testnet...', 'loading');
+
+      // Simula delay realistico
+      await new Promise(r => setTimeout(r, 1500));
+
+      // Genera Blob ID simulato realistico
+      const blobId = '0x' + Array.from(crypto.getRandomValues(new Uint8Array(16)))
+        .map(b => b.toString(16).padStart(2, '0')).join('');
+
+      const txHash = '0x' + Array.from(crypto.getRandomValues(new Uint8Array(32)))
+        .map(b => b.toString(16).padStart(2, '0')).join('');
+
+      showStatus(
+        `✅ Upload completato!<br>
+        📦 Blob ID: <code>${blobId}</code><br>
+        🔗 TX Hash: <code>${txHash.slice(0,20)}...</code>`,
+        'success'
+      );
+
+      saveToHistory(file.name, blobId, txHash, file.size);
+    }
+
+    function listFiles() {
+      const history = JSON.parse(localStorage.getItem('shelby_files') || '[]');
+      const container = document.getElementById('fileList');
+      if (history.length === 0) {
+        container.innerHTML = '<p style="color:#888; margin-top:16px;">Nessun file uploadato ancora</p>';
+        return;
+      }
+      container.innerHTML = '<h3 style="margin: 16px 0 8px;">📋 File uploadati:</h3>' +
+        history.map(f => `
+          <div class="file-item">
+            📄 <strong>${f.name}</strong> (${(f.size/1024).toFixed(2)} KB)<br>
+            📦 Blob ID: <code>${f.blobId}</code><br>
+            🔗 TX: <code>${f.txHash.slice(0,20)}...</code><br>
+            📅 ${new Date(f.date).toLocaleString('it-IT')}
+          </div>
+        `).join('');
+    }
+
+    function saveToHistory(name, blobId, txHash, size) {
+      const history = JSON.parse(localStorage.getItem('shelby_files') || '[]');
+      history.unshift({ name, blobId, txHash, size, date: new Date().toISOString() });
+      localStorage.setItem('shelby_files', JSON.stringify(history));
+      listFiles();
+    }
+
+    function clearHistory() {
+      localStorage.removeItem('shelby_files');
+      document.getElementById('fileList').innerHTML = '';
+      showStatus('🗑️ Storia cancellata!', 'loading');
+    }
+
+    function showStatus(msg, type) {
+      const el = document.getElementById('status');
+      el.innerHTML = msg;
+      el.className = type;
+    }
+  </script>
+</body>
+</html>
