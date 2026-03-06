@@ -1,3 +1,5 @@
+import { Buffer } from 'buffer'
+window.Buffer = Buffer
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { AptosWalletAdapterProvider } from '@aptos-labs/wallet-adapter-react'
