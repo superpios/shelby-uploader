@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/shelby-react/', // nome del tuo repository GitHub
+  base: '/shelby-uploader/',
   define: {
     global: 'globalThis',
   },
@@ -13,4 +13,3 @@ export default defineConfig({
     }
   }
 })
-
