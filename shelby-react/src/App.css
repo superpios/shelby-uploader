@@ -1,0 +1,78 @@
+.card {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 16px;
+  padding: 40px;
+  max-width: 620px;
+  width: 100%;
+  text-align: center;
+}
+h1 { font-size: 28px; margin-bottom: 8px; }
+.sub { color: #888; margin-bottom: 20px; }
+.stats {
+  display: flex;
+  justify-content: space-around;
+  background: #1a1a1a;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 16px;
+}
+.stat-value { font-size: 22px; font-weight: bold; color: #0043FF; }
+.stat-label { font-size: 11px; color: #888; }
+.wallet-box {
+  background: #1a1a1a;
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 16px;
+}
+.wallet-status { font-size: 13px; margin-bottom: 8px; }
+.connected { color: #00ff88; }
+.upload-area {
+  border: 2px dashed #0043FF;
+  border-radius: 12px;
+  padding: 32px;
+  cursor: pointer;
+  margin: 16px 0;
+  transition: background 0.3s;
+}
+.upload-area:hover { background: #0043FF15; }
+.file-size { font-size: 12px; color: #888; margin-top: 6px; }
+button {
+  background: #0043FF;
+  color: white;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  margin: 6px;
+  transition: opacity 0.3s;
+}
+button:hover { opacity: 0.8; }
+button.secondary { background: #222; border: 1px solid #333; }
+.buttons { margin: 8px 0; }
+.status {
+  margin: 14px 0;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  text-align: left;
+  line-height: 1.8;
+}
+.success { background: #003d00; border: 1px solid #00ff88; }
+.error { background: #3d0000; border: 1px solid #ff4444; }
+.loading { background: #1a1a00; border: 1px solid #ffaa00; }
+.history { margin-top: 20px; text-align: left; }
+.history h3 { margin-bottom: 10px; }
+.file-item {
+  background: #1a1a1a;
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 12px;
+  margin: 8px 0;
+  font-size: 12px;
+  word-break: break-all;
+  line-height: 1.8;
+}
+code { background: #222; padding: 2px 5px; border-radius: 4px; font-size: 11px; }
+.gray { color: #888; }
