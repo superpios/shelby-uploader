@@ -54,3 +54,35 @@ code { background:#222; padding:2px 5px; border-radius:4px; font-size:11px; }
 .dex-desc { font-size:11px; color:#888; margin-bottom:12px; }
 .dex-btn { background:#0043FF; color:white; padding:6px 14px; border-radius:6px; font-size:12px; display:inline-block; }
 .swap-note { font-size:11px; color:#666; margin-top:8px; }
+
+/* BALANCE */
+.balance-box { background:#1a1a1a; border:1px solid #333; border-radius:12px; padding:16px; margin-bottom:12px; text-align:left; }
+.balance-title { font-size:14px; font-weight:bold; margin-bottom:12px; display:flex; align-items:center; justify-content:space-between; }
+.btn-refresh { background:transparent; border:none; cursor:pointer; font-size:16px; padding:0; margin:0; }
+.balance-grid { display:flex; gap:12px; }
+.balance-item { flex:1; background:#222; border-radius:8px; padding:12px; text-align:center; }
+.balance-token { display:block; font-size:11px; color:#888; margin-bottom:4px; }
+.balance-amount { display:block; font-size:20px; font-weight:bold; color:#0043FF; }
+
+/* SWAP BOX */
+.swap-box { background:#1a1a1a; border:1px solid #333; border-radius:12px; padding:16px; margin-bottom:12px; }
+.swap-title { font-size:14px; font-weight:bold; margin-bottom:12px; }
+.swap-row { display:flex; align-items:center; gap:8px; margin-bottom:12px; }
+.swap-token-box { flex:1; background:#222; border-radius:8px; padding:12px; text-align:center; }
+.swap-label { font-size:10px; color:#888; margin-bottom:4px; }
+.swap-token { font-size:16px; font-weight:bold; }
+.btn-switch { background:#0043FF; color:white; border:none; border-radius:50%; width:36px; height:36px; cursor:pointer; font-size:16px; flex-shrink:0; }
+.swap-input { width:100%; background:#222; border:1px solid #444; border-radius:8px; padding:12px; color:white; font-size:16px; margin-bottom:8px; }
+.swap-input:focus { outline:none; border-color:#0043FF; }
+.swap-rate { font-size:12px; color:#888; margin-bottom:12px; }
+.btn-swap { width:100%; background:#0043FF; color:white; border:none; border-radius:8px; padding:12px; font-size:15px; cursor:pointer; transition:opacity 0.3s; }
+.btn-swap:hover { opacity:0.8; }
+
+/* FAUCET */
+.faucet-box { background:#1a1a1a; border:1px solid #333; border-radius:12px; padding:16px; text-align:left; }
+.faucet-title { font-size:14px; font-weight:bold; margin-bottom:8px; }
+.faucet-btns { display:flex; gap:8px; margin-bottom:10px; }
+.faucet-btn { flex:1; background:#003d00; border:1px solid #00ff88; color:#00ff88; padding:10px; border-radius:8px; text-decoration:none; text-align:center; font-size:13px; transition:opacity 0.3s; }
+.faucet-btn:hover { opacity:0.8; }
+.faucet-btn.susd { background:#1a1a00; border-color:#ffaa00; color:#ffaa00; }
+.swap-note { font-size:11px; color:#666; margin-top:8px; }
