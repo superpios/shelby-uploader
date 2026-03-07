@@ -47,12 +47,17 @@ export default function App() {
 
   // ── Carica storico quando cambia wallet ──────────────────────────
   useEffect(() => {
+    if (!walletAddr) return
     const h = loadHistory(walletAddr)
     setHistory(h)
-    if (walletAddr && h.length > 0) {
-      showStatus(`📂 Caricati ${h.length} file dal tuo storico wallet`, 'success')
+    if (h.length > 0) {
+      showStatus(`📂 Caricati ${h.length} file dal tuo storico`, 'success')
     }
   }, [walletAddr])
+
+  useEffect(() => {
+    if (!connected) setHistory([])
+  }, [connected])
 
   // ── Fetch balance quando apre tab swap ───────────────────────────
   useEffect(() => {
